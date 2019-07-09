@@ -27,7 +27,6 @@
 *.log
 *.sql
 *.sqlite
-/tests/frontend/e2e/output
 
 # OS generated files #
 ######################
@@ -45,7 +44,6 @@ Thumbs.db
 #############
 .vscode
 
-# Folders #
-##########
-/uploads/
-
+# Uploaded Results #
+####################
+/uploads/*
