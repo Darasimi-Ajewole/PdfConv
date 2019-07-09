@@ -99,6 +99,12 @@ function afterConv(response) {
   }
 }
 
+function fileUpdate(event) {
+  event.preventDefault()
+  file.files = event.originalEvent.dataTransfer.files
+}
+
+
 var file = document.querySelector('.file-upload-input');
 var spinner = "<i class='fa fa-spinner fa-spin '></i>";
 var docForm = document.querySelector(".image-upload-wrap form");
@@ -106,6 +112,12 @@ var docFormWrapper = document.querySelector(".image-upload-wrap");
 var docFormFieldset = document.querySelector(".image-upload-wrap form fieldset");
 var main =  document.querySelector(".wrapper.wow.fadeInUp")
 var winURL = window.location.href
+var dropContainer = $('.image-upload-wrap');
+//drag and drop event
+dropContainer.on('dragenter dragover',(event)=>{event.preventDefault()})
+dropContainer.on('drop',fileUpdate)
+
+
 
 file.onchange = (event) => {
   submission()
