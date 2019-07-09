@@ -5,11 +5,9 @@ from .forms import TaskForm
 from django.views.decorators.csrf import csrf_protect
 from PdfConv.celery import app
 from time import sleep
-from django.conf import settings
 
 @csrf_protect
 def index(request):
-    #del request.session["taskID"]
     #setting up more than one task is not allowed, checking taskID in session ensures that
     if request.method == 'POST' and "taskID" not in request.session: 
         form = TaskForm(request.POST,request.FILES)
@@ -26,6 +24,10 @@ def index(request):
         return render(request,"main/index.html", {'state': state })
 
 def converting(request):
+    """
+        TO-DO: Move logic to models.py
+    """
+
     #calls delay on celery task
     #returns link to download file
     #and task_id
@@ -44,6 +46,10 @@ def converting(request):
         return JsonResponse(response)
     
     #task not yet completed
+    """
+    TO-DO: fix condition that an error occured in conversion 
+    in order to avoid an infinite while loop
+    """
     task = app.AsyncResult(task_id)
     while  not task.ready():
         sleep(3)
