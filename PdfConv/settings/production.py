@@ -15,21 +15,17 @@ LOGGING = {
             'format': '{levelname} {asctime} {module} {process:d} {thread:d} {message}',
             'style': '{',
         },
-        'simple': {
-            'format': '{levelname} {message}',
-            'style': '{',
-        },
     },
     'handlers': {
         'console': {
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
-            'formatter': 'simple'
+            'formatter': 'verbose'
         },
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
         },
     },
 }
