@@ -29,3 +29,8 @@ LOGGING = {
         },
     },
 }
+
+#Celery Settings
+CELERY_RESULT_BACKEND = os.environ['REDIS_URL']
+
+CELERY_BROKER_URL = os.environ['REDIS_URL']

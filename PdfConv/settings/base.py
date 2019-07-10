@@ -126,8 +126,3 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 #white noise settings
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-#Celery Settings
-CELERY_RESULT_BACKEND = 'redis://localhost'
-
-CELERY_BROKER_URL = 'redis://localhost'
