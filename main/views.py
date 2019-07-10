@@ -64,6 +64,7 @@ def download(request):
     #download
     task_id = request.session.get("task_id",None)
     task_rec = get_object_or_404(Task,name=task_id)
+    print("ok")
     file_path = task_rec.doc.path.replace("docx","pdf")
     del request.session['state']
 
@@ -71,6 +72,7 @@ def download(request):
         _file = open(file_path,"rb").read()
         return HttpResponse(_file,content_type="application/pdf")
     except FileNotFoundError:
+        print("surprising")
         raise Http404("File deleted from server")
 
 def prepTask(new_task,request):
