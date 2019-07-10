@@ -5,9 +5,11 @@ from .forms import TaskForm
 from django.views.decorators.csrf import csrf_protect
 from PdfConv.celery import app
 from time import sleep
+from django.conf import settings
 
 @csrf_protect
 def index(request):
+    print("11111",settings.MEDIA_ROOT)
     #setting up more than one task is not allowed, checking taskID in session ensures that
     if request.method == 'POST' and "taskID" not in request.session: 
         form = TaskForm(request.POST,request.FILES)
@@ -68,7 +70,7 @@ def download(request):
     del request.session['state']
 
     try:
-        print(file_path)
+        print(2222222,file_path)
         _file = open(file_path,"rb").read()
         return HttpResponse(_file,content_type="application/pdf")
     except FileNotFoundError:
