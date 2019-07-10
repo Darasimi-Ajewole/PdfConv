@@ -1,3 +1,2 @@
-release: python manage.py migrate
+release: celery -A PdfConv worker -l info
 web: gunicorn PdfConv.production-wsgi --log-file -
-worker: python manage.py celery worker --loglevel=info
