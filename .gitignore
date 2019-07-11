@@ -44,3 +44,7 @@ Thumbs.db
 # IDE files #
 #############
 .vscode
+
+# Production files #
+####################
+*.env
