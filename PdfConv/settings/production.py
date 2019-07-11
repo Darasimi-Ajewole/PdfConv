@@ -5,7 +5,7 @@ DEBUG = config('DEBUG',cast=bool)
 
 file_directory = os.path.dirname(BASE_DIR)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'tmp')
+MEDIA_ROOT = os.path.join(file_directory , 'tmp')
 
 SECRET_KEY = config('SECRET_KEY')
 
