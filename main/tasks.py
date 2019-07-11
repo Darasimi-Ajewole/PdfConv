@@ -8,7 +8,7 @@ import os
 def convert(file_path):
     print(2222222233,os.listdir(settings.MEDIA_ROOT))
     print('hope',file_path)
-    process = Popen(["oowriter","-pt","pdf",file_path],stdout=PIPE)
+    process = Popen(["wvPDF",file_path,"converted.pdf"],stdout=PIPE)
     process.communicate()
     print(2222222233,os.listdir(settings.MEDIA_ROOT))
 
