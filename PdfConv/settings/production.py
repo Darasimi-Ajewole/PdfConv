@@ -3,6 +3,10 @@ from .base import *
 
 DEBUG = config('DEBUG',cast=bool)
 
+file_directory = os.path.dirname(BASE_DIR)
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'tmp')
+
 SECRET_KEY = config('SECRET_KEY')
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s for s in v.split(',')])
