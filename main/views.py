@@ -6,6 +6,7 @@ from django.views.decorators.csrf import csrf_protect
 from PdfConv.celery import app
 from time import sleep
 from django.conf import settings
+import os
 
 @csrf_protect
 def index(request):
@@ -65,6 +66,7 @@ def download(request):
     #download
     task_id = request.session.get("task_id",None)
     task_rec = get_object_or_404(Task,name=task_id)
+    print(os.listdir(settings.MEDIA_ROOT))
     file_path = task_rec.doc.path.replace("docx","pdf")
     del request.session['state']
 
