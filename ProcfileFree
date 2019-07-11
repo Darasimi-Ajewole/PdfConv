@@ -1,2 +1,2 @@
 web: gunicorn PdfConv.production-wsgi --log-file -
-worker: celery -A PdfConv worker -l info 
+celery: celery -A PdfConv worker -l info 
