@@ -3,9 +3,8 @@ from .base import *
 
 DEBUG = config('DEBUG',cast=bool)
 
-file_directory = os.path.dirname(BASE_DIR)
 
-MEDIA_ROOT = os.path.join(file_directory , 'tmp')
+MEDIA_ROOT = '/tmp/uploads'
 
 SECRET_KEY = config('SECRET_KEY')
 
