@@ -6,9 +6,9 @@ import os
 
 @shared_task
 def convert(file_path):
-    print(2222222233,os.listdir(settings.MEDIA_ROOT))
+    print(77777777733,os.listdir(settings.MEDIA_ROOT))
     print('hope',file_path)
-    process = Popen(["/app/.apt/usr/lib/libreoffice","unoconv","-f","pdf",file_path],stdout=PIPE)
+    process = Popen(["unoconv","-f","pdf",file_path],stdout=PIPE)
     #process = Popen(["abiword","--to=pdf",file_path],stdout=PIPE)
     process.communicate()
     print(2222222233,os.listdir(settings.MEDIA_ROOT))
