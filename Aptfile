@@ -1,2 +1,6 @@
-openjdk-8-jre
-libreoffice
+openjdk-6-jdk 
+libreoffice-core 
+libreoffice-common 
+libreoffice-writer 
+python-uno
+unoconv
