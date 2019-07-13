@@ -1,6 +1,3 @@
-openjdk-8-jdk 
-libreoffice-core 
-libreoffice-common 
-libreoffice-writer 
-python-uno
+:repo:deb http://http.us.debian.org/debian stretch main
+libreoffice
 unoconv
