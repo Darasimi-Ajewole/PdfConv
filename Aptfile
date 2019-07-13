@@ -1,7 +1,7 @@
 cups-pdf
-wv
-tetex-extra 
-ghostscript 
+wv 
 texlive-base 
-texlive-latex-base
+texlive-latex-base 
+ghostscript
 abiword
+cairo-dock
