@@ -8,4 +8,4 @@ libcairo2-dev
 libcairo-gobject2
 abiword
 docx2txt
-xvfb
+xserver-xorg-video-dummy
