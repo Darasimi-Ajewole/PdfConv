@@ -10,3 +10,7 @@ export PATH=$PATH:$PWD/.ruby-gems/bin
 
 # install foreman
 gem install foreman
+
+#fixing unoconv error
+export PYTHONPATH=$PYTHONPATH:/app/.apt/usr/lib/python3/dist-packages
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/app/.apt/usr/lib:/app/.apt/usr/lib/libreoffice/program
