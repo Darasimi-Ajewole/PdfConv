@@ -1,3 +1,7 @@
-:repo:deb http://http.us.debian.org/debian stretch main
-libreoffice
-unoconv
+cups-pdf
+wv
+tetex-extra 
+ghostscript 
+texlive-base 
+texlive-latex-base
+abiword
