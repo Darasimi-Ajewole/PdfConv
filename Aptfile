@@ -1,7 +1,2 @@
-cups-pdf
-wv 
-texlive-base 
-texlive-latex-base 
-ghostscript
-abiword
-cairo-dock
+libreoffice
+unoconv
