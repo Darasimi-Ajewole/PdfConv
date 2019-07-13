@@ -8,3 +8,4 @@ libcairo2-dev
 libcairo-gobject2
 abiword
 docx2txt
+xvfb
