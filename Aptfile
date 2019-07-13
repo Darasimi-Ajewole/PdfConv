@@ -1,2 +1,7 @@
 libreoffice
 unoconv
+gcc 
+g++ 
+libfreetype6-dev 
+ibglib2.0-dev
+libcairo2-dev
