@@ -6,7 +6,7 @@ export LANG=en_CA.UTF-8
 # set up ruby env
 mkdir .ruby-gems
 export GEM_HOME=$PWD/.ruby-gems
-export PATH=$PATH:$PWD/.ruby-gems/bin:/app/.apt/usr/lib/python3:/app/.apt/usr/lib/libreoffice/program
+export PATH=$PATH:$PWD/.ruby-gems/bin
 
 # install foreman
 gem install foreman
