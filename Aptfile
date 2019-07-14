@@ -9,4 +9,4 @@ libcairo-gobject2
 abiword
 docx2txt
 libharfbuzz-dev
-vim
+libharfbuzz-icu0
