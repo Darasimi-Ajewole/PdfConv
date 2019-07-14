@@ -1,4 +1,9 @@
-gcc-libs
+gstreamer1.0-libav 
+libkrb5-dev 
+nasm 
+graphviz 
+ccache 
+libpython3-dev
 unoconv
 gcc 
 g++ 
