@@ -1,0 +1,170 @@
+/*
+    Theme Name: Bethany
+    Theme URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
+    Author: BootstrapMade.com
+    Author URL: https://bootstrapmade.com
+*/
+
+body {
+  line-height: 1.5;
+  font-family: 'Open Sans', sans-serif;
+  overflow-x: hidden;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.section-padding {
+  padding: 60px 0px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Lato', sans-serif;
+}
+
+/**media Queries**/
+
+.navbar-default {
+  background-color: transparent;
+}
+
+.main-header {
+  
+  background-size: cover;
+  min-height: 610px;
+}
+
+.navbar-brand {
+  padding: 0px;
+  height: inherit;
+  font-family: 'Lato', sans-serif;
+}
+
+.navbar-default .navbar-brand {
+  
+  color: #fff;
+  font-size: 34px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 2px;
+
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus, .navbar-default .navbar-nav>.active>a:hover {
+  color: #FFD34E;
+  text-transform: uppercase;
+}
+
+.navbar-default {
+  color: #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+	background-color: #191919;
+}
+
+.navbar-fixed-top {
+  padding: 40px 0;
+}
+
+.wrapper {
+  padding: 90px 0px 130px;
+}
+
+.file-upload-input {
+  position: absolute;
+  margin: 30px;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-upload-wrap {
+  margin-top: 150px;
+  border: 4px dashed #191919;
+  position: relative;
+}
+
+.image-upload-wrap:hover {
+  background-color: #FFD34E;
+  border: 4px dashed #ffffff;
+}
+
+
+.drag-text {
+  text-align: center;
+}
+
+.drag-text h3 {
+  font-weight: 100;
+  text-transform: uppercase;
+  color: #15824B;
+  padding: 60px 0;
+}
+
+.btn,.download {
+  border: 0px;
+  display: inline-block;
+  font-size: 16px;
+  text-transform: uppercase;
+  padding: 10px 40px;
+  font-weight: normal;
+  border-radius: 0px;
+  letter-spacing: 1px;
+  color: rgba(0, 0, 0, 0.548);
+  position: relative;
+  overflow: hidden;
+  margin-top: 25px;
+}
+
+
+
+.black {
+  color: #000 !important;
+  font-weight: 600;
+}
+
+a, a:hover {
+  color: #FFD34E;
+}
+
+
+
+#footer {
+  background-color: #191919;
+  padding: 20px 0px;
+}
+
+.footer-copyright {
+  color: #fff;
+  line-height: 32px;
+  text-align: left;
+}
+
+/****/
+
+@media (min-width: 20px) and (max-width: 450px) {
+  .footer-copyright {
+    text-align: center;
+  }
+  body {
+    font-size: 14px;
+  }
+}
