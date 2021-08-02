@@ -1,6 +1,6 @@
 const Footer = () => (
   <>
-		<footer className id="footer">
+		<footer id="footer">
 			<div className="container">
 				<div className="row">
 					<div className="col-sm-7 footer-copyright">
