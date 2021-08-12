@@ -33,6 +33,7 @@
 # Production files #
 ####################
 *.env
+open-source-320820-1013ab77048c.json
 
 venv/*
 
