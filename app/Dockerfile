@@ -1,8 +1,7 @@
 # Python image to use.
 FROM python:3.8
 
-# Set the working directory to /app
-WORKDIR /app
+WORKDIR /usr/local/app
 
 # copy the requirements file used for dependencies
 COPY requirements.txt .
@@ -14,4 +13,4 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 COPY . .
 
 # Run app.py when the container launches
-ENTRYPOINT ["python", "app.py"]
+ENTRYPOINT ["./entrypoint.sh"]

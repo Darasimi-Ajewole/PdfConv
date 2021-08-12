@@ -1,0 +1,12 @@
+version: "3.2"
+services:
+  web:
+    build: ./app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./app:/usr/local/app
+      - /usr/local/app/venv/
+    container_name: pdf-converter
+    environment:
+    - DEBUG=1

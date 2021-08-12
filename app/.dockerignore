@@ -1,0 +1,8 @@
+.dockerignore
+.vscode
+.idea
+.readmes
+docker-compose.yml
+venv
+Dockerfile
+__pycache__
