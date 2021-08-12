@@ -1,13 +1,18 @@
 import { toast } from 'react-toastify';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import uploadFile from '../utils/upload';
 
 const Container = () => {
 	const uploadRef = useRef(null);
-  const [savedfiles, storeFiles] = useState({});
+  // const [savedfiles, storeFiles] = useState({});
 
-	const handleChange = (files) => {
+	const handleChange = async (files) => {
+		// TODO - Validate files, size, mimetype
+		// Disable - Upload field if files are prseent
 		toast('We are really good to go')
-		storeFiles(files);
+		// storeFiles(files);
+		// TO-DO: Use a context
+		uploadFile(files[0]);
 	};
 
 	const handleFileChange = (event) => {
@@ -16,9 +21,7 @@ const Container = () => {
 		event.target.value = '';
 	}
 
-	const handleDragEnter = (event) => {
-		event.preventDefault();
-	}
+	const handleDragEnter = (event) => event.preventDefault();
 
 	const handleDrop = (event) => {
 		event.preventDefault();
