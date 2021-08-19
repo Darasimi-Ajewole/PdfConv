@@ -13,4 +13,6 @@ RUN pip install --trusted-host pypi.python.org -r requirements.txt
 COPY . .
 
 # Run app.py when the container launches
+# TODO: Setup gunicorn
+
 ENTRYPOINT ["./entrypoint.sh"]
