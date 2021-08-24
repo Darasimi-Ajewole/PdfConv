@@ -1,12 +1,14 @@
+import firebase_admin
+
 from fireo.models import Model
 from fireo import fields
 from fireo.fields import errors
-import firebase_admin
-from firebase_admin import firestore
+from firebase_admin import firestore as _firestore
+from google.cloud import firestore
 
 firebase_admin.initialize_app()
 
-db = firestore.client()
+db = _firestore.client()
 
 
 FAILED = 'failed'
