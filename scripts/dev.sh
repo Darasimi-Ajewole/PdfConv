@@ -1,12 +1,10 @@
 #!/bin/bash
 
 terminate(){
-    echo 'Stopping and Removing all Containers.....'
-    docker-compose down
+    echo 'Stopping and Removing all Running Containers/Process.....'
+    docker-compose down && kill -HUP -$$
 }
 
 trap terminate SIGINT EXIT
 
-export GOOGLE_OAUTH_ACCESS_TOKEN=$(gcloud auth print-access-token)
-
-docker-compose up
+docker-compose up --build
