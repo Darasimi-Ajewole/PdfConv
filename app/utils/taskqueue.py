@@ -1,5 +1,7 @@
 import grpc
 import datetime
+import json
+
 from google.cloud.tasks_v2 import CloudTasksClient
 from google.cloud.tasks_v2.services.cloud_tasks.transports \
     import CloudTasksGrpcTransport
@@ -30,7 +32,7 @@ TASK_CLIENT = dev_client() if DEV else prod_client()
 def add(url, method='POST', payload={}, countdown=None) -> gct_task.Task:
     task = {
         'http_request': {
-            'http_method': getattr(tasks_v2.HttpMethod),
+            'http_method': getattr(tasks_v2.HttpMethod, method),
             'url': url
         }
     }
@@ -40,6 +42,19 @@ def add(url, method='POST', payload={}, countdown=None) -> gct_task.Task:
         # pylint: disable=no-member
         timestamp.FromDatetime(d)
         task['schedule_time'] = timestamp
+
+    if payload is not None:
+        if isinstance(payload, dict):
+            payload = json.dumps(payload)
+            task["http_request"]["headers"] = {
+                "Content-type": "application/json"}
+
+        # The API expects a payload of type bytes.
+        converted_payload = payload.encode()
+
+        # Add the payload to the request.
+        task["http_request"]["body"] = converted_payload
+
     task = TASK_CLIENT.create_task(task=task, parent=DEV_QUEUE)
     return task
 
