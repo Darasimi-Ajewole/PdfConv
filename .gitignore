@@ -12,3 +12,8 @@
 Icon?
 ehthumbs.db
 Thumbs.db
+
+# Docker files #
+.cache
+firebase/**.log
+firebase/storage
