@@ -7,13 +7,37 @@ from flask_restx import Resource, abort
 from utils.cloudstorage import generate_upload_url, check_upload
 from utils.converter import start_session
 from utils import taskqueue
+from models import ConversionTaskStatus
+from settings import DEV
 
 
 @public_api.route('/hello')
 class HelloWorld(Resource):
     def get(self):
+        return {'Hello': 'World'}
+
+
+@public_api.route('/test/crud')
+class CRUDTest(Resource):
+    def post(self):
+        if not DEV:
+            return {'CRUD': 'Golden'}
+
         taskqueue.create_dummy_task()
-        return {'hello': 'world'}
+        dummy_status = ConversionTaskStatus(
+            blob_name='dummy233', task_id='ohHappyDay')
+        dummy_status.save()
+
+        return {'hello': dummy_status.key}
+
+    def put(self):
+        if not DEV:
+            return {'CRUD': 'Golden'}
+        key = 'conversion_task_status/ohHappyDay'
+        task = ConversionTaskStatus.collection.get(key)
+        task.status = 'running'
+        task.save()
+        return {'hello': task.key}
 
 
 @public_api.route('/start-upload')
@@ -31,9 +55,14 @@ class GenerateUploadSession(Resource):
 
 @public_api.route('/convert-document/<path:blob_name>')
 class ConvertDocument(Resource):
+    @public_api.doc('Starts conversion session')
     def post(self, blob_name):
         valid_upload = check_upload(blob_name)
         if not valid_upload:
             return abort(404, 'Upload was not completed')
-        task = start_session(blob_name)
-        return f'Conversion Task -{task.name}, Enqueued Successfully', 200
+
+        task_status_id = start_session(blob_name)
+
+        logging.info(
+            f'Conversion Task: {task_status_id}, Enqueued Successfully')
+        return task_status_id
