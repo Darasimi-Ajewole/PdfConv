@@ -1,7 +1,12 @@
 from fireo.models import Model
 from fireo import fields
-from google.cloud import firestore
 from fireo.fields import errors
+import firebase_admin
+from firebase_admin import firestore
+
+firebase_admin.initialize_app()
+
+db = firestore.client()
 
 
 FAILED = 'failed'
@@ -17,13 +22,25 @@ POSSIBLE_STATUS = {
 
 
 class AutoModifiedDateTime(fields.DateTime):
-    def db_value(self, val):
-        val = super().db_value(val)
-        val = not val and firestore.SERVER_TIMESTAMP
+
+    def field_value(self, val):
+        self._old_value = val
         return val
+
+    def db_value(self, val):
+        old_value = getattr(self, '_old_value', None)
+        modified = val != old_value
+        if modified:
+            return val
+        return firestore.SERVER_TIMESTAMP
+
+    def attr_auto(self, attr_val, field_val):
+        return super().attr_auto(attr_val, field_val)
 
 
 class TextChoiceField(fields.TextField):
+    allowed_attributes = ['choices']
+
     def attr_choices(self, choices, field_val):
         if field_val not in choices:
             msg = f'{field_val} not part of acceptable choices - {choices}'
@@ -35,8 +52,18 @@ class Base(Model):
     created = fields.DateTime(auto=True)
     modified = AutoModifiedDateTime(auto=True)
 
+    class Meta:
+        abstract = True
+
 
 class ConversionTaskStatus(Base):
-    blob_name = fields.IDField(required=True)
+    blob_name = fields.TextField(required=True)
     status = TextChoiceField(default=STASIS, choices=POSSIBLE_STATUS)
-    task_id = fields.TextField()
+    cloud_task_name = fields.TextField()
+    task_id = fields.IDField(required=True)
+    download_url = fields.TextField()
+    file_name = fields.TextField()
+
+    def update_status(self, new_status):
+        self.status = new_status
+        self.save()
