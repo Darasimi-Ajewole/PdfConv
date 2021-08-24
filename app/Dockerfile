@@ -1,6 +1,7 @@
 # Python image to use.
-FROM python:3.8
-
+FROM python:3.9-slim
+# TODO: Cache libroffice packages
+RUN apt-get update && apt-get -y -q --no-install-recommends install libreoffice 
 WORKDIR /usr/local/app
 
 # copy the requirements file used for dependencies
@@ -15,4 +16,4 @@ COPY . .
 # Run app.py when the container launches
 # TODO: Setup gunicorn
 
-ENTRYPOINT ["./entrypoint.sh"]
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 --timeout 0 main:app
