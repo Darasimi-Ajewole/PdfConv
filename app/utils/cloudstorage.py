@@ -6,13 +6,15 @@ from settings import UPLOAD_BUCKET_NAME
 from requests import put
 
 
+storage_client = storage.Client()
+bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
+
+
 def generate_upload_url(mimetype: str) -> tuple:
     fileuuid = uuid.uuid4().hex
     current_date = datetime.datetime.now().strftime("%d-%m-%y")
-    blob_name = '{}/{}'.format(current_date, fileuuid)
+    blob_name = '{}/{}/source'.format(current_date, fileuuid)
 
-    storage_client = storage.Client()
-    bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
     blob = bucket.blob(blob_name)
 
     url = blob.generate_signed_url(
@@ -58,3 +60,16 @@ def upload_test_file(upload_url):
     headers = {'Content-Type': MIMETYPE}
     r = put(upload_url, files, headers=headers)
     return r
+
+
+def get_blob(blob_name):
+    blob = bucket.blob(blob_name)
+    # TODO: check if blob exists
+    return blob
+
+
+def upload_file(file, target_blob_name):
+    pdf_blob = bucket.blob(target_blob_name)
+    pdf_blob.upload_from_filename(filename=file)
+
+    return pdf_blob
