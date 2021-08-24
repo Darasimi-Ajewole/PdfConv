@@ -1,18 +1,25 @@
 import { toast } from 'react-toastify';
-import { useRef } from 'react';
+import { useRef, useContext } from 'react';
 import uploadFile from '../utils/upload';
+import { startConvertSession } from '../utils/convert';
+import { StatusContext } from '../context/ConversionStatus';
+
+// TODO: - Validate files, size, mimetype
+// Disable - Upload field if files are prseent
+// Disable - while file uploads are running
+// storeFiles(files);
+// TO-DO: Use a context
 
 const Container = () => {
 	const uploadRef = useRef(null);
+	const { attachUpdateListener } = useContext(StatusContext);
   // const [savedfiles, storeFiles] = useState({});
 
 	const handleChange = async (files) => {
-		// TODO - Validate files, size, mimetype
-		// Disable - Upload field if files are prseent
 		toast('We are really good to go')
-		// storeFiles(files);
-		// TO-DO: Use a context
-		uploadFile(files[0]);
+		const { blobName } = await uploadFile(files[0]);
+		const { taskStatusId } = await startConvertSession(blobName);
+		attachUpdateListener(taskStatusId);
 	};
 
 	const handleFileChange = (event) => {
