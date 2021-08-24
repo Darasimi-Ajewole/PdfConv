@@ -1,5 +1,5 @@
 import os
-DEV = bool(os.environ.get('DEBUG', None))
+DEV = bool(os.environ.get('FLASK_ENV', None))
 UPLOAD_BUCKET_NAME = 'pdf-conv'
 
 DEV_CLOUD_TASKS_HOST = os.environ.get('TASK_EMULATOR_HOST')
