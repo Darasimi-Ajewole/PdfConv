@@ -2,7 +2,6 @@ import axios from "axios";
 
 const API_ROOT = 'http://localhost:8080/public'
 const START_UPLOAD = `${API_ROOT}/start-upload`
-const VALIDATE_UPLOAD = `${API_ROOT}/validate-upload/`
 
 const startUploadSession = async (file) => {
   let data, status, response
@@ -45,19 +44,14 @@ const upload2Storage = async (uploadUrl, file) => {
 
 }
 
-const validateUpload = async (blobName) => {
-  const endpoint = `${VALIDATE_UPLOAD}/${blobName}`
-  const response = await axios.get(endpoint)
-  return response
-}
-
 const uploadFile = async (file) => {
+  console.log('Starting upload session')
   const { sessionData } = await startUploadSession(file);
   const { upload_url: uploadUrl, blob_name: blobName } = sessionData;
+  console.log('Uploading to storage')
   const uploadResponse = await upload2Storage(uploadUrl, file); // TO-DO: Check if upload was really successful
-  const validateResponse = await validateUpload(blobName);
 
-  return Boolean(uploadResponse && validateResponse)
+  return uploadResponse && { blobName }
 }
 
 export default uploadFile
