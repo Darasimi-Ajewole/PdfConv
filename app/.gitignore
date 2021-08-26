@@ -42,3 +42,7 @@ venv/*
 */img
 */.readmes
 */static
+
+# Generated files
+*source.docx
+*source.pdf
