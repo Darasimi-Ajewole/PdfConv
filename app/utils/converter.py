@@ -45,7 +45,7 @@ def convert_doc_to_pdf(blob_name):
     upload_file(pdf_file, pdf_blob_name)
 
     subprocess.check_output(
-        f'./scripts/clean.sh {folder_name}',
+        f'./scripts/cleanup.sh {folder_name}',
         stderr=subprocess.STDOUT,
         shell=True,
         universal_newlines=True)
