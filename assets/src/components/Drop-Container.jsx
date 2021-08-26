@@ -1,30 +1,16 @@
-import { toast } from 'react-toastify';
-import { useRef, useContext } from 'react';
-import uploadFile from '../utils/upload';
-import { startConvertSession } from '../utils/convert';
-import { StatusContext } from '../context/ConversionStatus';
-
+import { useRef } from 'react';
 // TODO: - Validate files, size, mimetype
 // Disable - Upload field if files are prseent
 // Disable - while file uploads are running
 // storeFiles(files);
 // TO-DO: Use a context
 
-const Container = () => {
+const Container = ({ handleChange }) => {
 	const uploadRef = useRef(null);
-	const { attachUpdateListener } = useContext(StatusContext);
-  // const [savedfiles, storeFiles] = useState({});
-
-	const handleChange = async (files) => {
-		toast('We are really good to go')
-		const { blobName } = await uploadFile(files[0]);
-		const { taskStatusId } = await startConvertSession(blobName);
-		attachUpdateListener(taskStatusId);
-	};
 
 	const handleFileChange = (event) => {
 		const { files } = event.target;
-		handleChange(files);
+		handleChange(files[0]);
 		event.target.value = '';
 	}
 
@@ -42,7 +28,7 @@ const Container = () => {
 		file.click();
 	}
 
-  return (
+	return (
 		<div
 			className="image-upload-wrap"
 			onClick={handleContainerClick}
@@ -51,15 +37,15 @@ const Container = () => {
 			onDrop={handleDrop}
 		>
 			<form>
-					<fieldset>
-						<input
-							className="file-upload-input"
-							type="file"
-							onChange={handleFileChange}
-							ref={uploadRef}
-						/>
-						{/* accept=".docx," */}
-					</fieldset>
+				<fieldset>
+					<input
+						className="file-upload-input"
+						type="file"
+						onChange={handleFileChange}
+						ref={uploadRef}
+					/>
+					{/* accept=".docx," */}
+				</fieldset>
 			</form>
 			<div className="drag-text">
 				<h3>Drag and drop a file or click to add</h3>

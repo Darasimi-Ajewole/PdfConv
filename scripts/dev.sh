@@ -7,4 +7,10 @@ terminate(){
 
 trap terminate SIGINT EXIT
 
-docker-compose up --build
+docker-compose up &
+
+cd assets
+
+yarn start &
+
+wait
