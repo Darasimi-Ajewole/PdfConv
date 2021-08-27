@@ -24,6 +24,7 @@ const Upload = ({ file, onUploadComplete }) => {
       onUploadComplete(uploadData);
     }
     startUpload();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -36,7 +37,6 @@ const Upload = ({ file, onUploadComplete }) => {
       {
         progress !== 100 && (
           <Toast.Body>
-
             <ProgressBar
               animated
               striped
@@ -44,7 +44,6 @@ const Upload = ({ file, onUploadComplete }) => {
               now={progress}
               label={`${progress.toFixed()}%`}
             />
-            )
           </Toast.Body>)
       }
 
