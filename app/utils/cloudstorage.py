@@ -15,7 +15,7 @@ def generate_upload_url(mimetype: str) -> tuple:
     current_date = datetime.datetime.now().strftime("%d-%m-%y")
     blob_name = '{}/{}/source'.format(current_date, fileuuid)
 
-    blob = bucket.blob(blob_name)
+    blob: storage.Blob = bucket.blob(blob_name)
 
     url = blob.generate_signed_url(
         version="v4",
@@ -28,7 +28,6 @@ def generate_upload_url(mimetype: str) -> tuple:
 
 
 def check_upload(blob_name: str) -> bool:
-    storage_client = storage.Client()
     bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
     blob = bucket.blob(blob_name)
     return blob.exists()
@@ -37,7 +36,6 @@ def check_upload(blob_name: str) -> bool:
 def cors_configuration(bucket_name):
     """Set a bucket's CORS policies configuration."""
     # bucket_name = "your-bucket-name"
-    storage_client = storage.Client()
     bucket = storage_client.get_bucket(bucket_name)
     bucket.cors = [
         {
@@ -73,3 +71,22 @@ def upload_file(file, target_blob_name):
     pdf_blob.upload_from_filename(filename=file)
 
     return pdf_blob
+
+
+def generate_download_signed_url_v4(blob: storage.Blob, download_name: str):
+    """Generates a v4 signed URL for downloading a blob.
+
+    Note that this method requires a service account key file. You can not use
+    this if you are using Application Default Credentials from Google Compute
+    Engine or from the Google Cloud SDK.
+    """
+    disposition = 'response-content-disposition'
+    url = blob.generate_signed_url(
+        version="v4",
+        expiration=datetime.timedelta(minutes=60),
+        method="GET",
+        query_parameters={
+            disposition: f'attachment;filename={download_name}'}
+    )
+
+    return url

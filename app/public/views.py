@@ -2,7 +2,8 @@ import logging
 
 from . import public_api
 from .schema import (GenerateUploadSessionModel,
-                     GenerateUploadSessionResponse)
+                     GenerateUploadSessionResponse,
+                     ConvertDocumentParser)
 from flask_restx import Resource, abort
 from utils.cloudstorage import generate_upload_url, check_upload
 from utils.converter import start_session
@@ -60,8 +61,8 @@ class ConvertDocument(Resource):
         valid_upload = check_upload(blob_name)
         if not valid_upload:
             return abort(404, 'Upload was not completed')
-
-        task_status_id = start_session(blob_name)
+        args = ConvertDocumentParser.parse_args()
+        task_status_id = start_session(blob_name, args['pdf-name'])
 
         logging.info(
             f'Conversion Task: {task_status_id}, Enqueued Successfully')

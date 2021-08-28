@@ -64,7 +64,7 @@ class ConversionTaskStatus(Base):
     cloud_task_name = fields.TextField()
     task_id = fields.IDField(required=True)
     download_url = fields.TextField()
-    file_name = fields.TextField()
+    pdf_name = fields.TextField()
 
     def update_status(self, new_status):
         self.status = new_status

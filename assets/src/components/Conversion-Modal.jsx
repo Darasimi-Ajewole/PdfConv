@@ -13,7 +13,7 @@ const ConversionModal = (props) => {
       <Modal.Body>
         <ToastContainer>
           {props.file && <Upload file={props.file} onUploadComplete={props.onUploadComplete} />}
-          {props.blobName && <Conversion blobName={props.blobName} />}
+          {props.blobName && <Conversion blobName={props.blobName} file={props.file} />}
         </ToastContainer>
       </Modal.Body>
     </Modal>
