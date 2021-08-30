@@ -6,19 +6,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import { FcCheckmark } from "react-icons/fc";
 import Button from 'react-bootstrap/Button'
 
-
-const STARTING = 'Starting Conversion';
-
-const msg = {
-  running: 'Converting your document to PDF',
-  stasis: STARTING,
-  success: 'Converted Successfully',
-}
-
-const extensionRegexExp = /(?<=(\.(?!.*\.))).*/;
-
 const Conversion = ({ blobName, file }) => {
-  const { attachUpdateListener, taskStatusData } = useContext(StatusContext);
+  const { attachUpdateListener, taskStatusData, cancelConversion } = useContext(StatusContext);
 
   useEffect(() => {
     const convert = async () => {
@@ -26,6 +15,7 @@ const Conversion = ({ blobName, file }) => {
       attachUpdateListener(taskStatusId);
     }
     convert()
+    return () => cancelConversion()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -33,7 +23,7 @@ const Conversion = ({ blobName, file }) => {
 
   return (
     <Toast>
-      <Toast.Header>
+      <Toast.Header closeButton={false}>
         <strong className="me-auto">{taskStatusData ? msg[taskStatusData.status] : STARTING}</strong>
         <small className="text-muted">
           {
@@ -49,6 +39,7 @@ const Conversion = ({ blobName, file }) => {
               href={taskStatusData.download_url}
               download
               target='_blank'
+              size="sm"
             >
               Download PDF
             </Button>
@@ -57,5 +48,15 @@ const Conversion = ({ blobName, file }) => {
     </Toast>
   )
 }
+
+const STARTING = 'Starting Conversion';
+
+const msg = {
+  running: 'Converting your document to PDF',
+  stasis: STARTING,
+  success: 'Converted Successfully',
+}
+
+const extensionRegexExp = /(?<=(\.(?!.*\.))).*/;
 
 export default Conversion;

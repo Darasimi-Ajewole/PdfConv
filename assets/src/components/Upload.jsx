@@ -3,10 +3,7 @@ import { useEffect, useState } from 'react'
 import uploadFile from '../utils/upload';
 import Toast from 'react-bootstrap/Toast';
 import { FcCheckmark } from "react-icons/fc";
-
-const UPLOADING = 'Uploading file';
-
-const UPLOADED = 'Uploaded Successfully';
+import { CancelToken } from 'axios';
 
 const Upload = ({ file, onUploadComplete }) => {
   const [progress, setProgress] = useState(0);
@@ -17,19 +14,22 @@ const Upload = ({ file, onUploadComplete }) => {
     setProgress(progress)
   }
 
-  useEffect(() => {
-    const startUpload = async () => {
-      const uploadData = await uploadFile(file, updateProgress);
 
+  useEffect(() => {
+    const source = CancelToken.source();
+    const startUpload = async () => {
+      const uploadData = await uploadFile(file, updateProgress, source);
       onUploadComplete(uploadData);
     }
     startUpload();
+
+    return () => source.cancel('Operation canceled by the user.')
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <Toast>
-      <Toast.Header>
+      <Toast.Header closeButton={false}>
         <strong className="me-auto">{progress === 100 ? UPLOADED : UPLOADING}</strong>
         <small className="text-muted">{progress === 100 && <FcCheckmark />}</small>
       </Toast.Header>
@@ -51,5 +51,9 @@ const Upload = ({ file, onUploadComplete }) => {
 
   )
 }
+
+const UPLOADING = 'Uploading file';
+
+const UPLOADED = 'Uploaded Successfully';
 
 export default Upload

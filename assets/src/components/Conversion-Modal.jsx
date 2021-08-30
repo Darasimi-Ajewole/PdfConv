@@ -2,6 +2,8 @@ import Modal from 'react-bootstrap/Modal';
 import ToastContainer from 'react-bootstrap/ToastContainer'
 import Upload from './Upload';
 import Conversion from './Converter';
+
+
 const ConversionModal = (props) => {
   return (
     <Modal
@@ -10,6 +12,7 @@ const ConversionModal = (props) => {
       aria-labelledby="contained-modal-title-vcenter"
       centered
     >
+      <Modal.Header closeButton onHide={props.cancelConversion} />
       <Modal.Body>
         <ToastContainer>
           {props.file && <Upload file={props.file} onUploadComplete={props.onUploadComplete} />}

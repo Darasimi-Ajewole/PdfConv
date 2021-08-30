@@ -19,6 +19,12 @@ const Main = () => {
 		setBlobName(blobName);
 	}
 
+	const cancelConversion = () => {
+		setFile(null);
+		setShowModal(null);
+		setBlobName(null);
+	}
+
 	return (
 		<>
 			<main className="container text-center">
@@ -30,6 +36,7 @@ const Main = () => {
 							blobName={blobName}
 							modalProps={{ show: showModal }}
 							onUploadComplete={onUploadComplete}
+							cancelConversion={cancelConversion}
 						/>
 						<ToastContainer />
 					</StatusContextProvider>

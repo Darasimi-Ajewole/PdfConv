@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useRef, useState } from 'react';
 import { doc, onSnapshot } from "firebase/firestore";
 import { initialiseFirestore } from '../utils/firebase';
 
@@ -9,14 +9,16 @@ const db = initialiseFirestore();
 const StatusContextProvider = (props) => {
   const [taskStatusId, setStatusId] = useState(null);
   const [taskStatusData, setStatusData] = useState(null);
-  const [unsubscribe, setUnsubscribe] = useState(null);
+  const unsubscribe = useRef()
+  // const [unsubscribe, setUnsubscribe] = useState(null);
 
   const cancelConversion = () => {
     setStatusId(null);
     setStatusData(null);
-    unsubscribe()
-    setUnsubscribe(null);
-    // TODO: change task status on firestore to canceled
+
+    console.log(`Unsubscribing from update about task`)
+    unsubscribe.current?.()
+    unsubscribe.current = null
   }
 
   const attachUpdateListener = (newtaskStatusId) => {
@@ -31,7 +33,7 @@ const StatusContextProvider = (props) => {
       },
       (error) => console.error(error)
     );
-    setUnsubscribe(() => unsub);
+    unsubscribe.current = unsub
   }
 
 
@@ -45,7 +47,7 @@ const StatusContextProvider = (props) => {
 
   return (
     <StatusContext.Provider value={globalContext}>
-        {props.children}
+      {props.children}
     </StatusContext.Provider>
   )
 }

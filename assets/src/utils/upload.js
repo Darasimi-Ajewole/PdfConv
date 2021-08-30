@@ -26,14 +26,15 @@ const startUploadSession = async (file) => {
   return { sessionData: data, status };
 }
 
-const upload2Storage = async (uploadUrl, file, onUploadProgress) => {
+const upload2Storage = async (uploadUrl, file, onUploadProgress, cancelSource) => {
   try {
     const response = await axios({
       method: 'put',
       url: uploadUrl,
       headers: { 'Content-Type': file.type },
       data: file,
-      onUploadProgress
+      onUploadProgress,
+      cancelToken: cancelSource.token,
     })
     return response
 
@@ -45,12 +46,12 @@ const upload2Storage = async (uploadUrl, file, onUploadProgress) => {
 
 }
 
-const uploadFile = async (file, onUploadProgress) => {
+const uploadFile = async (file, onUploadProgress, cancelSource) => {
   console.log('Starting upload session')
   const { sessionData } = await startUploadSession(file);
   const { upload_url: uploadUrl, blob_name: blobName } = sessionData;
   console.log('Uploading to storage')
-  const uploadResponse = await upload2Storage(uploadUrl, file, onUploadProgress); // TO-DO: Check if upload was really successful
+  const uploadResponse = await upload2Storage(uploadUrl, file, onUploadProgress, cancelSource); // TO-DO: Check if upload was really successful
 
   return uploadResponse && { blobName }
 }
