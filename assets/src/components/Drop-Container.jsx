@@ -1,12 +1,26 @@
 import { useRef } from 'react';
-// TODO: - Validate files, size, mimetype
-// Disable - Upload field if files are prseent
-// Disable - while file uploads are running
-// storeFiles(files);
-// TO-DO: Use a context
+import { validateFileSize, validateMimeType } from '../utils/validate';
+import { toast } from 'react-toastify';
 
-const Container = ({ handleChange }) => {
+const Container = (props) => {
 	const uploadRef = useRef(null);
+
+	const handleChange = (file) => {
+		const validSize = validateFileSize(file);
+		if (!validSize) {
+			toast.error('Uploaded document too large, Maximum Size is 100MB')
+			return
+		}
+
+		const validType = validateMimeType(file);
+		if (!validType) {
+			toast.error('Oops, Unsupported document format')
+			return
+		}
+
+		const { handleChange } = props;
+		handleChange(file)
+	}
 
 	const handleFileChange = (event) => {
 		const { files } = event.target;

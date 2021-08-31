@@ -2,12 +2,34 @@ import datetime
 import uuid
 
 from google.cloud import storage
-from settings import UPLOAD_BUCKET_NAME
+from settings import UPLOAD_BUCKET_NAME, MAX_FILE_SIZE
 from requests import put
 
 
 storage_client = storage.Client()
-bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
+bucket: storage.Bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
+
+VALID_MIMETYPE = {
+    'text/csv',
+    'application/csv',
+    'application/json',
+    'text/plain',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'application/vnd.ms-excel',
+    'image/bmp',
+    'image/gif',
+    'image/jpeg',
+    'image/png',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'text/html',
+    'application/vnd.ms-powerpoint',
+    'application\
+        /vnd.openxmlformats-officedocument.presentationml.presentation',
+    'application/rtf',
+    'text/plain',
+    'text/rtf',
+}
 
 
 def generate_upload_url(mimetype: str) -> tuple:
@@ -31,6 +53,19 @@ def check_upload(blob_name: str) -> bool:
     bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
     blob = bucket.blob(blob_name)
     return blob.exists()
+
+
+def validate_file(blob_name):
+    bucket: storage.Bucket = storage_client.bucket(UPLOAD_BUCKET_NAME)
+    blob: storage.Blob = bucket.get_blob(blob_name)
+
+    if blob.size > MAX_FILE_SIZE:
+        return False, 'File too large'
+
+    if blob.content_type not in VALID_MIMETYPE:
+        return False, 'Invalid file type'
+
+    return True, ''
 
 
 def cors_configuration(bucket_name):
@@ -61,8 +96,7 @@ def upload_test_file(upload_url):
 
 
 def get_blob(blob_name):
-    blob = bucket.blob(blob_name)
-    # TODO: check if blob exists
+    blob = bucket.get_blob(blob_name)
     return blob
 
 

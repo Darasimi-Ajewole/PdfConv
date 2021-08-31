@@ -38,7 +38,7 @@ const Main = () => {
 							onUploadComplete={onUploadComplete}
 							cancelConversion={cancelConversion}
 						/>
-						<ToastContainer />
+						<ToastContainer theme="light" />
 					</StatusContextProvider>
 				</div>
 			</main>

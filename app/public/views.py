@@ -5,7 +5,7 @@ from .schema import (GenerateUploadSessionModel,
                      GenerateUploadSessionResponse,
                      ConvertDocumentParser)
 from flask_restx import Resource, abort
-from utils.cloudstorage import generate_upload_url, check_upload
+from utils.cloudstorage import generate_upload_url, check_upload, validate_file
 from utils.converter import start_session
 from utils import taskqueue
 from models import ConversionTaskStatus
@@ -58,9 +58,14 @@ class GenerateUploadSession(Resource):
 class ConvertDocument(Resource):
     @public_api.doc('Starts conversion session')
     def post(self, blob_name):
-        valid_upload = check_upload(blob_name)
-        if not valid_upload:
+        successful_upload = check_upload(blob_name)
+        if not successful_upload:
             return abort(404, 'Upload was not completed')
+
+        valid_upload, err_msg = validate_file(blob_name)
+        if not valid_upload:
+            return abort(400, err_msg)
+
         args = ConvertDocumentParser.parse_args()
         task_status_id = start_session(blob_name, args['pdf-name'])
 

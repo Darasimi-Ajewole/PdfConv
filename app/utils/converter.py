@@ -30,6 +30,9 @@ def start_session(blob_name, pdf_name):
 
 def convert_doc_to_pdf(blob_name):
     doc_blob = get_blob(blob_name)
+    if not doc_blob:
+        raise Exception('Document no longer exists')
+
     folder_name = blob_name.strip('/source').replace('/', '').replace('-', '')
     os.mkdir(folder_name)
     doc_file = f'{folder_name}/source.docx'
