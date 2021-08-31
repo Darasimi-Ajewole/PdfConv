@@ -15,8 +15,22 @@ const ConversionModal = (props) => {
       <Modal.Header closeButton onHide={props.cancelConversion} />
       <Modal.Body>
         <ToastContainer>
-          {props.file && <Upload file={props.file} onUploadComplete={props.onUploadComplete} />}
-          {props.blobName && <Conversion blobName={props.blobName} file={props.file} />}
+          {
+            props.file &&
+            <Upload
+              file={props.file}
+              onUploadComplete={props.onUploadComplete}
+              onError={props.onError}
+            />
+          }
+          {
+            props.blobName &&
+            <Conversion
+              blobName={props.blobName}
+              file={props.file}
+              onError={props.onError}
+            />
+          }
         </ToastContainer>
       </Modal.Body>
     </Modal>

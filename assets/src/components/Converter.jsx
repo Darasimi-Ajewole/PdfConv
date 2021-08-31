@@ -6,18 +6,28 @@ import Spinner from 'react-bootstrap/Spinner';
 import { FcCheckmark } from "react-icons/fc";
 import Button from 'react-bootstrap/Button'
 
-const Conversion = ({ blobName, file }) => {
+const Conversion = ({ blobName, file, onError }) => {
   const { attachUpdateListener, taskStatusData, cancelConversion } = useContext(StatusContext);
 
   useEffect(() => {
     const convert = async () => {
-      const { taskStatusId } = await startConvertSession(blobName, file.name.replace(extensionRegexExp, 'pdf'));
-      attachUpdateListener(taskStatusId);
+      try {
+        const { taskStatusId } = await startConvertSession(blobName, file.name.replace(extensionRegexExp, 'pdf'));
+        attachUpdateListener(taskStatusId);
+      } catch (error) {
+        onError('Something went wrong, Please reload page and try again')
+      }
     }
     convert()
     return () => cancelConversion()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  useEffect(() => {
+    if (taskStatusData?.status === 'failed') {
+      onError('Something went wrong, Please reload page and try again')
+    }
+  }, [taskStatusData, onError])
 
 
 

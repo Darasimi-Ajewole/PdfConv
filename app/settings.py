@@ -8,3 +8,4 @@ DEV_WEB_HOST = os.environ.get('WEB_HOST')
 
 SERVICE_ACCOUNT_EMAIL = 'open-source-320820@appspot.gserviceaccount.com'
 MAX_FILE_SIZE = 100 * 1024 * 1024  # 100 MB
+MAX_RETRY_COUNT = 5

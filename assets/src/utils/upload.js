@@ -1,7 +1,5 @@
 import axios from "axios";
-
-const API_ROOT = 'http://localhost:8080/public'
-const START_UPLOAD = `${API_ROOT}/start-upload`
+import { START_UPLOAD } from "../config";
 
 const startUploadSession = async (file) => {
   let data, status, response
@@ -27,23 +25,16 @@ const startUploadSession = async (file) => {
 }
 
 const upload2Storage = async (uploadUrl, file, onUploadProgress, cancelSource) => {
-  try {
-    const response = await axios({
-      method: 'put',
-      url: uploadUrl,
-      headers: { 'Content-Type': file.type },
-      data: file,
-      onUploadProgress,
-      cancelToken: cancelSource.token,
-    })
-    return response
+  const response = await axios({
+    method: 'put',
+    url: uploadUrl,
+    headers: { 'Content-Type': file.type },
+    data: file,
+    onUploadProgress,
+    cancelToken: cancelSource.token,
+  })
 
-  } catch (error) {
-    console.log(error)
-
-    throw error
-  }
-
+  return response
 }
 
 const uploadFile = async (file, onUploadProgress, cancelSource) => {

@@ -5,7 +5,7 @@ import Toast from 'react-bootstrap/Toast';
 import { FcCheckmark } from "react-icons/fc";
 import { CancelToken } from 'axios';
 
-const Upload = ({ file, onUploadComplete }) => {
+const Upload = ({ file, onUploadComplete, onError }) => {
   const [progress, setProgress] = useState(0);
   const fileSize = file.size
 
@@ -18,8 +18,13 @@ const Upload = ({ file, onUploadComplete }) => {
   useEffect(() => {
     const source = CancelToken.source();
     const startUpload = async () => {
-      const uploadData = await uploadFile(file, updateProgress, source);
-      onUploadComplete(uploadData);
+      try {
+        const uploadData = await uploadFile(file, updateProgress, source);
+        onUploadComplete(uploadData);
+      } catch (error) {
+        console.error(error)
+        onError('Something went wrong, Please reload the page and try again')
+      }
     }
     startUpload();
 

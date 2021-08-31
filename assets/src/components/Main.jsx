@@ -1,5 +1,5 @@
 import DropContainer from './Drop-Container';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import StatusContextProvider from '../context/ConversionStatus';
 import ConversionModal from './Conversion-Modal';
 import { useState } from 'react';
@@ -25,6 +25,12 @@ const Main = () => {
 		setBlobName(null);
 	}
 
+	const onError = (errMsg, error) => {
+		setShowModal(false);
+		toast.error(errMsg);
+		console.error(error);
+	}
+
 	return (
 		<>
 			<main className="container text-center">
@@ -36,6 +42,7 @@ const Main = () => {
 							blobName={blobName}
 							modalProps={{ show: showModal }}
 							onUploadComplete={onUploadComplete}
+							onError={onError}
 							cancelConversion={cancelConversion}
 						/>
 						<ToastContainer theme="light" />

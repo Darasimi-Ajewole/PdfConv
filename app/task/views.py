@@ -1,13 +1,12 @@
 from . import task_api
 from flask_restx import Resource
-from utils.auth import task_auth_required
+from utils.request import task_request
 from utils.converter import run_conv_task
 from .schema import ConvertDocsModel
 
 
 class TaskResource(Resource):
-    # TODO: Add retry and suspend flag
-    method_decorators = [task_auth_required()]
+    method_decorators = [task_request()]
 
 
 @task_api.route('/hello')
