@@ -4,7 +4,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[Demo of PDF Converter](https://pdf-conv-3d1f5.web.app)
+![Demo of PDF Converter](./assets/images/pdfconverter.gif)
+
+[View it live here](https://pdf-conv-3d1f5.web.app)
 
 ## Summary
 
