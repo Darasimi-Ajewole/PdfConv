@@ -39,8 +39,8 @@ Click the demo link or clone/download the repository on your local machine.
 
 ## Features
 
-**1. Real time Update of successful conversion**
+1. Real time Update of successful conversion.
 
-**2. Convert documents of various formats to PDF**
+2. Convert documents of various formats to PDF
 
-**3. Drag and Drop Interface**
+3. Drag and Drop Interface
