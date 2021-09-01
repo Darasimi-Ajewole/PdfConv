@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-![Demo of PDF Converter](./assets/images/pdfconverter.gif)
+[<img src="./assets/images/pdfconverter.gif">](https://pdf-conv-3d1f5.web.app)
 
 [View it live here](https://pdf-conv-3d1f5.web.app)
 
@@ -19,7 +19,7 @@ The purpose of this project was to get familiar with Dockerisation of microservi
 
 ## Getting Started
 
-Click the demo link or clone/download the repository on your local machine.
+Clone/download the repository on your local machine.
 
 ### Install dependencies
 
