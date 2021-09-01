@@ -62,7 +62,7 @@ const Conversion = ({ blobName, file, onError }) => {
 const STARTING = 'Starting Conversion';
 
 const msg = {
-  running: 'Converting your document to PDF',
+  running: 'Converting to PDF',
   stasis: STARTING,
   success: 'Converted Successfully',
 }
