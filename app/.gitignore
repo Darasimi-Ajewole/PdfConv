@@ -30,11 +30,6 @@
 *.sqlite3
 
 
-# Development files #
-####################
-service_account/*
-venv/*
-
 # IDE #
 #######
 */.idea

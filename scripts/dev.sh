@@ -11,6 +11,7 @@ docker-compose up &
 
 cd assets
 
+export REACT_APP_ENVIRONMENT='development'
 yarn start &
 
 wait

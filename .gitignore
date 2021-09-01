@@ -17,3 +17,10 @@ Thumbs.db
 .cache
 firebase/**.log
 firebase/storage
+firebase/build
+firebase/.firebase
+
+# Development files #
+####################
+app/service_account/*
+app/venv/*

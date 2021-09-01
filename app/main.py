@@ -5,13 +5,13 @@ from task.views import task_api
 from flask_cors import CORS
 from werkzeug.exceptions import HTTPException
 import logging
+from settings import VALID_ORIGINS, DEV
 
-# pylint: disable=C0103
 app = Flask(__name__)
-# TODO: Change this to valid origins
-cors = CORS(app, resources=r"/public/*", origins=['http://localhost:3000'])
 
-api = Api(app)
+cors = CORS(app, resources=r"/public/*", origins=VALID_ORIGINS)
+
+api = Api(app, doc=(DEV and '/'))
 
 api.add_namespace(public_api)
 api.add_namespace(task_api)

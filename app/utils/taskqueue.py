@@ -7,15 +7,14 @@ from google.cloud.tasks_v2.services.cloud_tasks.transports \
     import CloudTasksGrpcTransport
 from google.cloud.tasks_v2.types import task as gct_task
 from google.cloud import tasks_v2
-from settings import DEV_CLOUD_TASKS_HOST, DEV
+from settings import CLOUD_TASKS_HOST, DEV
 from google.protobuf import timestamp_pb2
 
-DEV_LOCATION = 'projects/dev/locations/here'
-DEV_QUEUE = DEV_LOCATION + '/queues/anotherq'
+QUEUE = 'projects/open-source-320820/locations/us-central1/queues/default'
 
 
 def dev_client():
-    channel = grpc.insecure_channel(DEV_CLOUD_TASKS_HOST)
+    channel = grpc.insecure_channel(CLOUD_TASKS_HOST)
     transport = CloudTasksGrpcTransport(channel=channel)
     client = CloudTasksClient(transport=transport)
 
@@ -55,7 +54,7 @@ def add(url, method='POST', payload={}, countdown=None) -> gct_task.Task:
         # Add the payload to the request.
         task["http_request"]["body"] = converted_payload
 
-    task = TASK_CLIENT.create_task(task=task, parent=DEV_QUEUE)
+    task = TASK_CLIENT.create_task(task=task, parent=QUEUE)
     return task
 
 

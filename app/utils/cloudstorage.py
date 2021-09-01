@@ -1,8 +1,9 @@
 import datetime
 import uuid
-
+from google.auth import compute_engine
 from google.cloud import storage
-from settings import UPLOAD_BUCKET_NAME, MAX_FILE_SIZE
+from google.auth.transport import requests
+from settings import UPLOAD_BUCKET_NAME, MAX_FILE_SIZE, DEV
 from requests import put
 
 
@@ -31,6 +32,12 @@ VALID_MIMETYPE = {
     'text/rtf',
 }
 
+if not DEV:
+    auth_request = requests.Request()
+    signing_credentials = compute_engine.IDTokenCredentials(auth_request, "")
+else:
+    signing_credentials = None
+
 
 def generate_upload_url(mimetype: str) -> tuple:
     fileuuid = uuid.uuid4().hex
@@ -44,6 +51,7 @@ def generate_upload_url(mimetype: str) -> tuple:
         expiration=datetime.timedelta(minutes=15),
         method="PUT",
         content_type=mimetype,
+        credentials=signing_credentials,
     )
 
     return url, blob_name
@@ -119,6 +127,7 @@ def generate_download_signed_url_v4(blob: storage.Blob, download_name: str):
         version="v4",
         expiration=datetime.timedelta(minutes=60),
         method="GET",
+        credentials=signing_credentials,
         query_parameters={
             disposition: f'attachment;filename={download_name}'}
     )

@@ -1,6 +1,6 @@
 import { initializeApp, getApp } from "firebase/app";
 import { getFirestore, connectFirestoreEmulator } from "firebase/firestore"
-import { firebaseConfig } from "../config";
+import { firebaseConfig, DEV } from "../config";
 
 // DEBUGGING
 // import * as firestore from "firebase/firestore"
@@ -12,7 +12,7 @@ export const initialiseFirebase = () => {
   } catch (error) {
     const app = initializeApp(firebaseConfig);
     const db = getFirestore();
-    connectFirestoreEmulator(db, 'localhost', 8200);
+    if (DEV) connectFirestoreEmulator(db, 'localhost', 8200);
     return app
   }
 }

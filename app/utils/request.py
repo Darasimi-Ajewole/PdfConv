@@ -10,7 +10,6 @@ def task_request():
         @wraps(func)
         def middleware(*args, **kwargs):
             task_name = request.headers.get("X-Cloudtasks-Taskname")
-            # TODO: Find other ways to authenticate genuine task request
             if not task_name:
                 abort(403, message='Access denied')
 

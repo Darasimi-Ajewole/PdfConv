@@ -1,7 +1,7 @@
 import logging
 import os
 from . import taskqueue
-from settings import DEV_WEB_HOST
+from settings import WEB_HOST
 from models import ConversionTaskStatus, RUNNING, SUCCESS, FAILED
 from .cloudstorage import (get_blob, upload_file,
                            generate_download_signed_url_v4)
@@ -17,7 +17,7 @@ def start_session(blob_name, pdf_name):
     task_status.save()
     logging.info(f'Starting conversion session for {blob_name}')
     task = taskqueue.add(
-        url=f'{DEV_WEB_HOST}/task/convert',
+        url=f'{WEB_HOST}/task/convert',
         payload={
             'task_status_key': task_status.key
         },
