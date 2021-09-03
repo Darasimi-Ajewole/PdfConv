@@ -1,33 +1,6 @@
-# Compiled source #
-###################
-*.com
-*.class
-*.dll
-*.exe
-*.o
-*.so
-*.pyc
-*~
-
-# Packages #
-############
-# it's better to unpack these files and commit the raw source
-# git has its own built in compression methods
-*.7z
-*.dmg
-*.gz
-*.iso
-*.jar
-*.rar
-*.tar
-*.zip
-
-# Logs and databases #
-######################
-*.log
-*.sql
-*.sqlite
-*.sqlite3
+# IDE files #
+#############
+.vscode
 
 # OS generated files #
 ######################
@@ -40,11 +13,14 @@ Icon?
 ehthumbs.db
 Thumbs.db
 
+# Docker files #
+.cache
+firebase/**.log
+firebase/storage
+firebase/build
+firebase/.firebase
 
-# IDE files #
-#############
-.vscode
-
-# Production files #
+# Development files #
 ####################
-*.env
+app/service_account/*
+app/venv/*
