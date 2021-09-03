@@ -1,7 +1,7 @@
 import axios from "axios";
 import { START_UPLOAD } from "../config";
 
-const startUploadSession = async (file) => {
+export const startUploadSession = async (file) => {
   let data, status, response
 
   // try {
@@ -24,7 +24,7 @@ const startUploadSession = async (file) => {
   return { sessionData: data, status };
 }
 
-const upload2Storage = async (uploadUrl, file, onUploadProgress, cancelSource) => {
+export const upload2Storage = async (uploadUrl, file, onUploadProgress, cancelSource) => {
   const response = await axios({
     method: 'put',
     url: uploadUrl,
