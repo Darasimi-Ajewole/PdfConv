@@ -1,11 +1,11 @@
 import axios from "axios";
-import { START_UPLOAD } from "../config";
+import { START_UPLOAD_URL } from "../config";
 
 export const startUploadSession = async (file) => {
   let data, status, response
 
   // try {
-  //   response = await axios.get(START_UPLOAD);
+  //   response = await axios.get(START_UPLOAD_URL);
   // } catch (error) {
   //   response = error && error.response;
   //   errored = true
@@ -15,7 +15,7 @@ export const startUploadSession = async (file) => {
   //   status = response && response.status
   //   return { sessionData: null, status: status || 417, error: 'Sorry Something went wrong' }
   // }
-  response = await axios.post(START_UPLOAD, {
+  response = await axios.post(START_UPLOAD_URL, {
     data: { mimetype: file.type }
   });
 

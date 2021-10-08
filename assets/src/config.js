@@ -17,5 +17,5 @@ export const firebaseConfig = DEV ? devConfig : prodConfig
 const DEV_API_ROOT = 'http://localhost:8080/public'
 const PROD_API_ROOT = 'https://default-xwijo2rjaa-uc.a.run.app/public'
 const API_ROOT = DEV ? DEV_API_ROOT : PROD_API_ROOT
-export const START_UPLOAD = `${API_ROOT}/start-upload`
+export const START_UPLOAD_URL = `${API_ROOT}/start-upload`
 export const CONVERT_API = `${API_ROOT}/convert-document`

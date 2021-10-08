@@ -4,14 +4,14 @@ from fireo.models import Model
 from fireo import fields, connection
 from fireo.fields import errors
 from firebase_admin import firestore as _firestore
-from google.cloud import firestore
-from settings import firebase_options, DEV, firebase_service_account
 from firebase_admin import credentials
+from google.cloud import firestore
+from settings import FIREBASE_OPTIONS, DEV, FIREBASE_SERVICE_ACCOUNT
 
 if not DEV:
-    cred = credentials.Certificate(firebase_service_account)
-    firebase_admin.initialize_app(cred, options=firebase_options)
-    connection(from_file=firebase_service_account)
+    cred = credentials.Certificate(FIREBASE_SERVICE_ACCOUNT)
+    firebase_admin.initialize_app(cred, options=FIREBASE_OPTIONS)
+    connection(from_file=FIREBASE_SERVICE_ACCOUNT)
 else:
     firebase_admin.initialize_app()
 
