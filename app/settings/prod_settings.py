@@ -1,5 +1,6 @@
 VALID_ORIGINS = [
     'https://pdf-conv-3d1f5.web.app',
+    'http://localhost:3000',
 ]
 
 WEB_HOST = 'https://default-xwijo2rjaa-uc.a.run.app'
