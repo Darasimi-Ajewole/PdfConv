@@ -10,14 +10,8 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Build Front end assets
-      env:
-        CLOUD_RUN_ACCOUNT: ${{ secrets.GCP_EMAIL }}
-        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
       run: |
-        cd assets
-        yarn install &&
-        yarn build && 
-        cp -r build ../firebase
+        ./scripts/build.sh assets
 
     - name: Deploy to firebase
       uses: FirebaseExtended/action-hosting-deploy@v0
@@ -44,6 +38,12 @@ jobs:
     - name: Configure Docker
       run: |
         gcloud auth configure-docker
+
+    - name: Rebuild Docker image
+      env:
+        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+      run: |
+        ./scripts/build.sh app
 
     - name: Deploy to cloud run
       uses: google-github-actions/deploy-cloudrun@main
