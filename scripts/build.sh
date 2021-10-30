@@ -25,6 +25,6 @@ case $1 in
     app)
         build_app ;;
     *)
-        echo "Usage: $0 assets|app"
+        echo "Invalid arg $1"
         exit 1 ;;
 esac
