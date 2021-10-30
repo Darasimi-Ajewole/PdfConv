@@ -12,7 +12,7 @@ jobs:
     - name: Build Front end assets
       run: |
         ./scripts/build.sh assets
-
+    - run: cd assets
     - name: Deploy to firebase
       uses: FirebaseExtended/action-hosting-deploy@v0
       with:
@@ -42,9 +42,10 @@ jobs:
     - name: Rebuild Docker image
       env:
         GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
-        FIREBASE_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
+        FIREBASE_KEY: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
       run: |
         ./scripts/build.sh app
+    - run: cd app
     - name: Deploy to cloud run
       id: deploy
       uses: google-github-actions/deploy-cloudrun@main
