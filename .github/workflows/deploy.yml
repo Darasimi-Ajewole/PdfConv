@@ -21,7 +21,6 @@ jobs:
       run: |
         gcloud auth configure-docker
       
-    # Build and Deploy to both Cloud Run and Firebase
     - name: Build and Deploy
       env:
         CLOUD_RUN_ACCOUNT: ${{ secrets.GCP_EMAIL }}
@@ -37,3 +36,11 @@ jobs:
         projectId: pdf-conv-3d1f5
         channelId: live
         entryPoint:  ./firebase
+
+    - name: Deploy to cloud run
+      uses: google-github-actions/deploy-cloudrun@main
+      with:
+        service: default
+        image: gcr.io/${{ secrets.GCP_PROJECT }}/pdf-conv:latest
+        credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
+        region: us-central1
