@@ -39,11 +39,11 @@ jobs:
       run: |
         gcloud auth configure-docker
 
-    - name: Rebuild Docker image
-      env:
-        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
-      run: |
-        ./scripts/build.sh app
+    # - name: Rebuild Docker image
+    #   env:
+    #     GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+    #   run: |
+    #     ./scripts/build.sh app
 
     - name: Deploy to cloud run
       uses: google-github-actions/deploy-cloudrun@main
@@ -53,5 +53,4 @@ jobs:
         credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         region: us-central1
 
-    - name: Use Output
-      run: curl "${{ steps.deploy.outputs.url }}"
+    - run: echo $url
