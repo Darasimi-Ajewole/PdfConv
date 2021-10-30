@@ -53,5 +53,6 @@ jobs:
         image: gcr.io/${{ secrets.GCP_PROJECT }}/pdf-conv:latest
         credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         region: us-central1
+        source: ./app
 
     - run: echo "${{ steps.deploy.outputs.url }}"
