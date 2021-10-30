@@ -8,6 +8,7 @@ jobs:
     name: Setup, Build, Publish, and Deploy assets to Firebase
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Build Front end assets
       env:
         CLOUD_RUN_ACCOUNT: ${{ secrets.GCP_EMAIL }}
