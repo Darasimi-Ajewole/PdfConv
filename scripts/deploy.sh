@@ -2,19 +2,20 @@
 
 deploy_cloud_run(){
   cd app
-  gcloud builds submit --project=open-source-320820 --tag gcr.io/open-source-320820/pdf-conv:latest &&
+  gcloud builds submit --tag gcr.io/$GCP_PROJECT/pdf-conv:latest &&
   gcloud run deploy default \
-    --project=open-source-320820 \
-    --image gcr.io/open-source-320820/pdf-conv:latest \
+    --image gcr.io/$GCP_PROJECT/pdf-conv:latest \
     --region=us-central1 \
-    --service-account pdfconv@open-source-320820.iam.gserviceaccount.com \
+    --service-account $CLOUD_RUN_ACCOUNT \
     --allow-unauthenticated \
 
 }
 
 deploy_asset(){
   cd assets
-  yarn build && cp -r build ../firebase
+  yarn install &&
+  yarn build && 
+  cp -r build ../firebase
   cd '../firebase'
   firebase deploy
 }
