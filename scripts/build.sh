@@ -12,8 +12,7 @@ build_asset(){
   yarn build && 
   cp -r build ../firebase
 }
-echo $#
-if [ $# -lt 2 ]
+if [ $# -lt 1 ]
 then
     echo "Usage: $0 assets|app"
     exit 1
