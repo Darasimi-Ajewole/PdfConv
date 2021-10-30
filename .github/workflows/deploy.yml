@@ -12,7 +12,7 @@ jobs:
     # Setup gcloud CLI
     - uses: google-github-actions/setup-gcloud@master
       with:
-        service_account_email: ${{ secrets.GCP_EMAIL }}
+        project_id: ${{ secrets.GCP_PROJECT }}
         service_account_key: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         export_default_credentials: true
     
@@ -20,11 +20,6 @@ jobs:
     - name: Configure Docker
       run: |
         gcloud auth configure-docker
-      
-    # Set GCP Project
-    - name: Set Project
-      run: |
-        gcloud config set project open-source-320820
       
     # Build and Deploy to both Cloud Run and Firebase
     - name: Build and Deploy
