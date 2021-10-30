@@ -28,3 +28,12 @@ jobs:
         GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
       run: |
         ./scripts/deploy.sh
+
+    - name: Deploy to firebase
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
+        projectId: pdf-conv-3d1f5
+        channelId: live
+        entryPoint:  ./firebase

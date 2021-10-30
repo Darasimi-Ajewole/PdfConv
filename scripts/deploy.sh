@@ -14,10 +14,7 @@ deploy_cloud_run(){
 deploy_asset(){
   cd assets
   yarn install &&
-  yarn build && 
-  cp -r build ../firebase
-  cd '../firebase'
-  firebase deploy
+  yarn build
 }
 
 
