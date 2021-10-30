@@ -42,9 +42,9 @@ jobs:
     - name: Rebuild Docker image
       env:
         GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+        FIREBASE_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}
       run: |
         ./scripts/build.sh app
-    - run: cd app
     - name: Deploy to cloud run
       id: deploy
       uses: google-github-actions/deploy-cloudrun@main

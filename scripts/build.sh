@@ -3,7 +3,8 @@
 build_app(){
   cd app
   gcloud builds submit --tag gcr.io/$GCP_PROJECT/pdf-conv:latest
-
+  mkdir -p service_account
+  echo $FIREBASE_KEY >> ./service_account/pdf-conv-3d1f5-firebase-adminsdk-iiadp-232350456b.json
 }
 
 build_asset(){
