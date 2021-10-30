@@ -4,8 +4,31 @@ on:
     branches:
       - master
 jobs:
-  setup-build-publish-deploy:
-    name: Setup, Build, Publish, and Deploy
+  setup-build-publish-deploy-firebase:
+    name: Setup, Build, Publish, and Deploy assets to Firebase
+    runs-on: ubuntu-latest
+    steps:
+    - name: Build Front end assets
+      env:
+        CLOUD_RUN_ACCOUNT: ${{ secrets.GCP_EMAIL }}
+        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+      run: |
+        cd assets
+        yarn install &&
+        yarn build && 
+        cp -r build ../firebase
+
+    - name: Deploy to firebase
+      uses: FirebaseExtended/action-hosting-deploy@v0
+      with:
+        repoToken: '${{ secrets.GITHUB_TOKEN }}'
+        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
+        projectId: pdf-conv-3d1f5
+        channelId: live
+        entryPoint:  ./firebase
+
+  setup-build-publish-deploy-cloudrun:
+    name: Setup, Build, Publish, and Deploy PDF service to cloud run
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -20,22 +43,6 @@ jobs:
     - name: Configure Docker
       run: |
         gcloud auth configure-docker
-      
-    - name: Build and Deploy
-      env:
-        CLOUD_RUN_ACCOUNT: ${{ secrets.GCP_EMAIL }}
-        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
-      run: |
-        ./scripts/deploy.sh
-
-    - name: Deploy to firebase
-      uses: FirebaseExtended/action-hosting-deploy@v0
-      with:
-        repoToken: '${{ secrets.GITHUB_TOKEN }}'
-        firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_KEY }}'
-        projectId: pdf-conv-3d1f5
-        channelId: live
-        entryPoint:  ./firebase
 
     - name: Deploy to cloud run
       uses: google-github-actions/deploy-cloudrun@main
@@ -44,3 +51,6 @@ jobs:
         image: gcr.io/${{ secrets.GCP_PROJECT }}/pdf-conv:latest
         credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         region: us-central1
+
+    - name: Use Output
+      run: curl "${{ steps.deploy.outputs.url }}"
