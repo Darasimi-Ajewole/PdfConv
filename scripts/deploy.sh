@@ -20,10 +20,6 @@ deploy_asset(){
   firebase deploy
 }
 
-terminate(){
-    echo 'Stopping and Removing all Running Deployment.....'
-    kill -HUP -$$
-}
 
 trap terminate SIGINT EXIT
 
