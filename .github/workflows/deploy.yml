@@ -46,6 +46,7 @@ jobs:
         ./scripts/build.sh app
 
     - name: Deploy to cloud run
+      id: deploy
       uses: google-github-actions/deploy-cloudrun@main
       with:
         service: default
