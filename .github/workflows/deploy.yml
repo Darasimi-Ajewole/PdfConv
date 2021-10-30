@@ -24,6 +24,7 @@ jobs:
     # Set GCP Project
     - name: Set Project
       run: |
+        echo ${{ secrets.GCP_PROJECT }}
         gcloud config set project ${{ secrets.GCP_PROJECT }}
       
     # Build and Deploy to both Cloud Run and Firebase
