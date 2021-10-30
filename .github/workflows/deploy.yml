@@ -5,7 +5,7 @@ on:
       - master
 jobs:
   setup-build-publish-deploy-firebase:
-    name: Setup, Build, Publish, and Deploy assets to Firebase
+    name: Deploy assets to Firebase
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -23,7 +23,7 @@ jobs:
         entryPoint:  ./firebase
 
   setup-build-publish-deploy-cloudrun:
-    name: Setup, Build, Publish, and Deploy PDF service to cloud run
+    name: Deploy PDF service to cloud run
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -39,11 +39,11 @@ jobs:
       run: |
         gcloud auth configure-docker
 
-    # - name: Rebuild Docker image
-    #   env:
-    #     GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
-    #   run: |
-    #     ./scripts/build.sh app
+    - name: Rebuild Docker image
+      env:
+        GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
+      run: |
+        ./scripts/build.sh app
 
     - name: Deploy to cloud run
       uses: google-github-actions/deploy-cloudrun@main
@@ -53,4 +53,4 @@ jobs:
         credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         region: us-central1
 
-    - run: echo $url
+    - run: echo "${{ steps.deploy.outputs.url }}"
