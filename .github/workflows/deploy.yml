@@ -44,7 +44,7 @@ jobs:
         GCP_PROJECT: ${{ secrets.GCP_PROJECT }}
       run: |
         ./scripts/build.sh app
-
+    - run: cd app
     - name: Deploy to cloud run
       id: deploy
       uses: google-github-actions/deploy-cloudrun@main
@@ -53,6 +53,5 @@ jobs:
         image: gcr.io/${{ secrets.GCP_PROJECT }}/pdf-conv:latest
         credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         region: us-central1
-        source: ./app
 
     - run: echo "${{ steps.deploy.outputs.url }}"
