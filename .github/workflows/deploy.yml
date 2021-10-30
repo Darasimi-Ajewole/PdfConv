@@ -13,7 +13,7 @@ jobs:
     - uses: google-github-actions/setup-gcloud@master
       with:
         service_account_email: ${{ secrets.GCP_EMAIL }}
-        service_account_key: ${{ secrets.GCP_CREDENTIALS }}
+        service_account_key: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         export_default_credentials: true
     
     # Configure Docker with Credentials
