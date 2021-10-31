@@ -9,6 +9,8 @@ trap terminate SIGINT EXIT
 
 docker-compose up &
 
+ln -f .env assets/.env
+
 cd assets
 
 export REACT_APP_ENVIRONMENT='development'
