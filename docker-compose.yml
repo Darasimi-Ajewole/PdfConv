@@ -22,10 +22,10 @@ services:
         "--eager-loading",
       ]
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS=./service_account/open-source-320820-b7123898a659.json
+      - GOOGLE_APPLICATION_CREDENTIALS=./service_account/your_service_account.json
       - FIRESTORE_EMULATOR_HOST=firebase_emulator:8200
-      - GCLOUD_PROJECT=foobar123
-      - FIRESTORE_PROJECT_ID=foobar123
+      - GOOGLE_CLOUD_PROJECT=${PROJECT_ID}
+      - FIRESTORE_PROJECT_ID=${PROJECT_ID}
       - TASK_EMULATOR_HOST=gcloud-tasks-emulator:8123
       - WEB_HOST=http://web:8080
       - FLASK_APP=main
@@ -37,7 +37,7 @@ services:
 
   gcloud-tasks-emulator:
     image: ghcr.io/aertje/cloud-tasks-emulator:latest
-    command: -host 0.0.0.0 -port 8123 -queue "projects/open-source-320820/locations/us-central1/queues/default"
+    command: -host 0.0.0.0 -port 8123 -queue "projects/${PROJECT_ID}/locations/us-central1/queues/default"
     ports:
       - "${TASKS_PORT:-8123}:8123"
 
@@ -52,7 +52,7 @@ services:
     command:
       [
         "firebase",
-        "--project=foobar123",
+        "--project=${PROJECT_ID}",
         "emulators:start",
         "--import",
         "./storage",
