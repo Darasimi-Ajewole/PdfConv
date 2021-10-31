@@ -10,7 +10,7 @@ const prodConfig = {
   appId: "1:1027537161135:web:099ab5decbba6a8c8ffd5a"
 };
 const devConfig = {
-  projectId: "foobar123",
+  projectId: process.env.REACT_APP_PROJECT_ID,
 }
 export const firebaseConfig = DEV ? devConfig : prodConfig
 

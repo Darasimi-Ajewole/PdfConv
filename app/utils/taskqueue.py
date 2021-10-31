@@ -7,10 +7,10 @@ from google.cloud.tasks_v2.services.cloud_tasks.transports \
     import CloudTasksGrpcTransport
 from google.cloud.tasks_v2.types import task as gct_task
 from google.cloud import tasks_v2
-from settings import CLOUD_TASKS_HOST, DEV
+from settings import CLOUD_TASKS_HOST, DEV, GOOGLE_CLOUD_PROJECT
 from google.protobuf import timestamp_pb2
 
-QUEUE = 'projects/open-source-320820/locations/us-central1/queues/default'
+QUEUE = f'projects/{GOOGLE_CLOUD_PROJECT}/locations/us-central1/queues/default'
 
 
 def dev_client():

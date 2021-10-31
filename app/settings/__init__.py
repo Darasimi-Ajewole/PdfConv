@@ -6,6 +6,7 @@ if DEV:
 else:
     from .prod_settings import *  # noqa: F401, F403
 
+GOOGLE_CLOUD_PROJECT = os.environ.get('GOOGLE_CLOUD_PROJECT')
 UPLOAD_BUCKET_NAME = 'pdf-conv'
 MAX_FILE_SIZE = 100 * 1024 * 1024  # 100 MB
 MAX_RETRY_COUNT = 5
