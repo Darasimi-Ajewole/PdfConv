@@ -54,5 +54,6 @@ jobs:
         image: gcr.io/${{ secrets.GCP_PROJECT }}/pdf-conv:latest
         credentials: ${{ secrets.SERVICE_ACCOUNT_CREDENTIALS }}
         region: us-central1
+        env_vars: GOOGLE_CLOUD_PROJECT="${{ secrets.GCP_PROJECT }}"
 
     - run: echo "${{ steps.deploy.outputs.url }}"
