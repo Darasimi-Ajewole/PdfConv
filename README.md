@@ -19,7 +19,9 @@ The purpose of this project was to get familiar with Dockerisation of microservi
 
 ## Getting Started
 
-Clone/download the repository on your local machine.
+- Clone/download the repository on your local machine.
+- Get service account key from project owner.
+- Save service account key in `./app/service_account/your_service_account.json`
 
 ### Install dependencies
 
