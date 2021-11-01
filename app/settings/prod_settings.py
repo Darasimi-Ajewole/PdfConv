@@ -1,7 +1,7 @@
 VALID_ORIGINS = [
     'https://pdf-conv-3d1f5.web.app',
     'http://localhost:3000',
-    'https://offline-react-form.web.app/',
+    'https://offline-react-form.web.app',
 ]
 
 WEB_HOST = 'https://default-xwijo2rjaa-uc.a.run.app'
