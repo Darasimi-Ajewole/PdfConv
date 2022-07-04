@@ -11,8 +11,9 @@ const Conversion = ({ blobName, file, onError }) => {
 
   useEffect(() => {
     const convert = async () => {
+      const fileName = file.name.replace(extensionRegexExp, 'pdf')
       try {
-        const { taskStatusId } = await startConvertSession(blobName, file.name.replace(extensionRegexExp, 'pdf'));
+        const { taskStatusId } = await startConvertSession(blobName, fileName);
         attachUpdateListener(taskStatusId);
       } catch (error) {
         onError('Something went wrong, Please reload page and try again')
