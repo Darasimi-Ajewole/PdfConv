@@ -122,14 +122,12 @@ def generate_download_signed_url_v4(blob: storage.Blob, download_name: str):
     this if you are using Application Default Credentials from Google Compute
     Engine or from the Google Cloud SDK.
     """
-    disposition = 'response-content-disposition'
     url = blob.generate_signed_url(
         version="v4",
         expiration=datetime.timedelta(minutes=60),
-        method="GET",
         credentials=signing_credentials,
-        query_parameters={
-            disposition: f'attachment;filename={download_name}'}
+        response_disposition=f'attachment;filename={download_name}',
+        response_type='application/pdf'
     )
 
     return url
