@@ -54,19 +54,13 @@ const uploadFile = async (
   file: File,
   onUploadProgress: (progressEvent: ProgressEvent) => void,
   cancelSource: CancelTokenSource
-): Promise<FileUploadResponse | null> => {
+): Promise<FileUploadResponse> => {
   console.log("Starting upload session");
   const { sessionData } = await startUploadSession(file);
   const { upload_url: uploadUrl, blob_name: blobName } = sessionData;
   console.log("Uploading to storage");
-  const uploadResponse = await upload2Storage(
-    uploadUrl,
-    file,
-    onUploadProgress,
-    cancelSource
-  ); // TO-DO: Check if upload was really successful
-
-  return uploadResponse && { blobName }; // TO-DO: Ensure blobName is blank only on upload failure
+  await upload2Storage(uploadUrl, file, onUploadProgress, cancelSource);
+  return { blobName }; // TO-DO: Ensure blobName is blank only on upload failure
 };
 
 export default uploadFile;
