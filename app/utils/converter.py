@@ -28,7 +28,7 @@ def start_session(blob_name, pdf_name):
     return task_status.task_id
 
 
-def convert_doc_to_pdf(blob_name):
+def convert_doc_to_pdf(blob_name: str):
     doc_blob = get_blob(blob_name)
     if not doc_blob:
         raise Exception('Document no longer exists')
