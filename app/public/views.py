@@ -57,17 +57,18 @@ class GenerateUploadSession(Resource):
 @public_api.route('/convert-document/<path:blob_name>')
 class ConvertDocument(Resource):
     @public_api.doc('Starts conversion session')
+    @public_api.expect(ConvertDocumentParser, validate=True)
     def post(self, blob_name):
         successful_upload = check_upload(blob_name)
         if not successful_upload:
-            return abort(404, 'Upload was not completed')
+            return abort(404, 'Document does not exist or Upload was not completed')
 
         valid_upload, err_msg = validate_file(blob_name)
         if not valid_upload:
             return abort(400, err_msg)
 
         args = ConvertDocumentParser.parse_args()
-        task_status_id = start_session(blob_name, args['pdf-name'])
+        task_status_id: str = start_session(blob_name, args['pdf-name'])
 
         logging.info(
             f'Conversion Task: {task_status_id}, Enqueued Successfully')

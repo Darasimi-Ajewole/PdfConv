@@ -14,4 +14,4 @@ GenerateUploadSessionResponse = public_api.model('SessionResponse', {
 
 ConvertDocumentParser = public_api.parser()
 ConvertDocumentParser.add_argument(
-    'pdf-name', default='Converted.pdf', help="PDF download name")
+    'pdf-name', default='Converted.pdf', type=str, help="PDF download name", location='args')
