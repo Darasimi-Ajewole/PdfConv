@@ -60,7 +60,7 @@ const uploadFile = async (
   const { upload_url: uploadUrl, blob_name: blobName } = sessionData;
   console.log("Uploading to storage");
   await upload2Storage(uploadUrl, file, onUploadProgress, cancelSource);
-  return { blobName }; // TO-DO: Ensure blobName is blank only on upload failure
+  return { blobName };
 };
 
 export default uploadFile;
