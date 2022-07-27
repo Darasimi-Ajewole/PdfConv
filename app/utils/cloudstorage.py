@@ -21,6 +21,7 @@ VALID_MIMETYPE = {
     'image/gif',
     'image/jpeg',
     'image/png',
+    'image/svg+xml',
     'application/msword',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     'text/html',
