@@ -14,6 +14,7 @@ def start_session(blob_name, pdf_name):
         task_id=blob_name.replace('/', '--'),
         pdf_name=pdf_name
     )
+
     task_status.save()
     logging.info(f'Starting conversion session for {blob_name}')
     task = taskqueue.add(
@@ -38,32 +39,44 @@ def convert_doc_to_pdf(blob_name: str):
     doc_file = f'{folder_name}/source.docx'
     doc_blob.download_to_filename(doc_file)
 
-    subprocess.check_output(
+    result = subprocess.run(
         f'./scripts/convert.sh {folder_name}',
         stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
         shell=True,
+        check=False,
         universal_newlines=True)
+
+    logging.info(result.stdout)
+    result.check_returncode()
 
     pdf_file = f'{folder_name}/source.pdf'
     pdf_blob_name = blob_name.replace('source', 'destination')
     pdf_blob = upload_file(pdf_file, pdf_blob_name)
 
-    subprocess.check_output(
+    result = subprocess.run(
         f'./scripts/cleanup.sh {folder_name}',
         stderr=subprocess.STDOUT,
+        stdout=subprocess.PIPE,
         shell=True,
+        check=False,
         universal_newlines=True)
+
+    logging.info(result.stdout)
+    result.check_returncode()
 
     return 'done', pdf_blob
 
 
 def run_conv_task(key):
+    logging.info(f'Starting conversion - {key}')
     task: ConversionTaskStatus = ConversionTaskStatus.collection.get(key)
     task.update_status(RUNNING)
 
     try:
         completed, pdf_blob = convert_doc_to_pdf(task.blob_name)
     except Exception as e:
+        logging.error('Conversion failed')
         logging.error(e)
         completed = False
     if not completed:
