@@ -117,14 +117,23 @@ h6 {
   text-align: center;
 }
 
-.drag-text h3 {
+.drag-text h3,
+.drag-text h6 {
   font-weight: 100;
-  text-transform: uppercase;
   color: #15824b;
-  padding: 60px 0;
 }
 
-.btn {
+.drag-text h3 {
+  padding: 60px 0;
+  text-transform: uppercase;
+}
+
+.drag-text h6 {
+  word-spacing: 0.3rem;
+  font-size: medium;
+}
+
+.drag-text h .btn {
   letter-spacing: 1px;
 }
 

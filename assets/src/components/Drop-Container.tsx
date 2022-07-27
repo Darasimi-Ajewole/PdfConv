@@ -72,6 +72,10 @@ const Container = (props: ContainerProps) => {
       </form>
       <div className="drag-text">
         <h3>Drag and drop a file or click to add</h3>
+        <h6>
+          {" "}
+          .png, .jpg, .svg, .xls, .pptx, .doc, .docx files are supported{" "}
+        </h6>
       </div>
     </div>
   );

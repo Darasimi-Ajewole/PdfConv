@@ -6,7 +6,7 @@ const Header = () => (
           <div className="col-md-12">
             <div className="navbar-header">
               <a href="#header" className="navbar-brand">
-                Word_2_PDF
+                PDF Converter
               </a>
             </div>
           </div>
