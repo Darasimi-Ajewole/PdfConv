@@ -4,7 +4,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-[<img src="./assets/images/pdfconverter.gif">](https://pdf-conv-3d1f5.web.app)
+https://user-images.githubusercontent.com/35644954/181395490-d8ae8399-d655-4428-b4d1-505e56136a27.mp4
 
 [View it live here](https://pdf-conv-3d1f5.web.app)
 
